@@ -1,33 +1,29 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var loginButton = document.getElementById('loginButton');
-    loginButton.addEventListener('click', function() {
-      validateForm();
-    });
-  });
-
-  function validateForm() {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
+function validateLogin() {
+    var email = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value.trim();
 
     // Reset error messages
-    document.getElementById("emailError").innerText = "";
-    document.getElementById("passwordError").innerText = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passwordError").textContent = "";
 
-   
-    var isValid = true;
+    var storedEmail = localStorage.getItem('email');
+    var storedPassword = localStorage.getItem('password');
 
-    if (email.trim() === "") {
-      document.getElementById("emailError").innerText = "Email is required";
-      isValid = false;
+    if(email === ''){
+      document.getElementById('emailError').textContent ='Please enter Email';
+      return false;
     }
 
-    if (password.trim() === "") {
-      document.getElementById("passwordError").innerText = "Password is required";
-      isValid = false;
+    if(password === ''){
+      document.getElementById('passwordError').textContent ='Please enter Password';
+      return false;
     }
 
-    if (isValid) {
-   
-      window.location.href = 'todo.html';
+    if(email !== storedEmail || password !== storedPassword){
+      document.getElementById('passwordError').textContent ='Incorrect email or password';
+      return false;
     }
+    window.location.href = 'todo.html';
+
+    return false;
   }
